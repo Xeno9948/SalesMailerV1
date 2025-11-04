@@ -51,6 +51,18 @@ app/
 
 4. **Explore the docs** at [http://localhost:8000/docs](http://localhost:8000/docs).
 
+## Deployment & Hosting
+
+This project is a FastAPI backend that must be running on a Python server to expose its web interface. Publishing the repository on GitHub alone (including GitHub Pages) does **not** execute the application, so visiting the repository URL will only show the source code.
+
+To make the management portal available at a public URL you need to deploy it to a platform that can run FastAPI applications. A few options:
+
+- **Render/ Railway/ Fly.io** – create a new web service, point it to this repository, set the start command to `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, and add the necessary environment variables (OpenAI, Gmail, etc.).
+- **Docker container** – package the app with Uvicorn and deploy it to any container platform (Azure Web Apps, Google Cloud Run, AWS App Runner, etc.).
+- **Self-hosted server** – run `uvicorn app.main:app --host 0.0.0.0 --port 8000` on a VM or bare-metal server and expose port 8000 through a reverse proxy such as Nginx.
+
+If you want a static landing page on GitHub Pages, you can host documentation there that links to the deployed backend URL, but the API itself must live on a server that can execute Python code.
+
 ## API Overview
 
 - `POST /brands` – create brands and configure sender/tone defaults.
