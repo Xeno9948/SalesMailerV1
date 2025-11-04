@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="panel">
+  <h2>1. Brand setup</h2>
+  <p>Create or update the brands that can receive confirmation emails.</p>
+  <form id="brandForm" class="form-grid">
+    <label>
+      Name
+      <input type="text" name="name" required />
+    </label>
+    <label>
+      Slug
+      <input type="text" name="slug" placeholder="kiyoh" required />
+    </label>
+    <label>
+      Sender name
+      <input type="text" name="sender_name" placeholder="Customer Success" />
+    </label>
+    <label>
+      Sender email
+      <input type="email" name="sender_email" placeholder="info@example.com" />
+    </label>
+    <label>
+      Default subject
+      <input type="text" name="default_subject" placeholder="Thanks for reaching out" />
+    </label>
+    <label>
+      Default tone
+      <input type="text" name="default_tone" placeholder="Friendly, professional" />
+    </label>
+    <label class="full-width">
+      OpenAI style instructions
+      <textarea name="openai_style_instructions" rows="2" placeholder="Emphasise speed and reliability."></textarea>
+    </label>
+    <button type="submit">Create brand</button>
+  </form>
+  <div id="brandList" class="item-list"></div>
+</section>
+
+<section class="panel">
+  <h2>2. Feature library</h2>
+  <p>Define reusable features that can be highlighted in confirmation emails.</p>
+  <form id="featureForm" class="form-grid">
+    <label>
+      Name
+      <input type="text" name="name" required />
+    </label>
+    <label class="full-width">
+      Short description
+      <textarea name="short_description" rows="2" required></textarea>
+    </label>
+    <label class="full-width">
+      Long description
+      <textarea name="long_description" rows="3"></textarea>
+    </label>
+    <button type="submit">Add feature</button>
+  </form>
+  <div id="featureList" class="item-list"></div>
+</section>
+
+<section class="panel">
+  <h2>3. Brand assets</h2>
+  <p>Attach features to specific brands with URLs and CTAs.</p>
+  <form id="brandFeatureForm" class="form-grid">
+    <label>
+      Brand
+      <select name="brand_id" required></select>
+    </label>
+    <label>
+      Feature
+      <select name="feature_id" required></select>
+    </label>
+    <label>
+      Asset label
+      <input type="text" name="asset_label" placeholder="View case study" />
+    </label>
+    <label>
+      Asset URL
+      <input type="url" name="asset_url" placeholder="https://" />
+    </label>
+    <label>
+      CTA text
+      <input type="text" name="cta_text" placeholder="Book a demo" />
+    </label>
+    <button type="submit">Link feature</button>
+  </form>
+  <div id="brandFeatureList" class="item-list"></div>
+</section>
+
+<section class="panel">
+  <h2>4. Email templates</h2>
+  <p>Upload or edit the HTML template used for a brand.</p>
+  <form id="templateForm" class="form-grid">
+    <label>
+      Brand
+      <select name="brand_id" required></select>
+    </label>
+    <label>
+      Name
+      <input type="text" name="name" placeholder="Default template" required />
+    </label>
+    <label>
+      Subject template
+      <input type="text" name="subject_template" placeholder="Thanks {{ lead.first_name }}" />
+    </label>
+    <label class="full-width">
+      HTML body
+      <textarea name="html_body" rows="6" placeholder="&lt;h1&gt;Hello {{ lead.first_name }}&lt;/h1&gt;" required></textarea>
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="is_default" />
+      Set as default for brand
+    </label>
+    <button type="submit">Save template</button>
+  </form>
+  <div id="templateList" class="item-list"></div>
+</section>
+
+<section class="panel">
+  <h2>5. Campaigns</h2>
+  <p>Group features into monthly campaigns and set tone overrides.</p>
+  <form id="campaignForm" class="form-grid">
+    <label>
+      Brand
+      <select name="brand_id" required></select>
+    </label>
+    <label>
+      Name
+      <input type="text" name="name" placeholder="June highlights" required />
+    </label>
+    <label class="full-width">
+      Description
+      <textarea name="description" rows="2"></textarea>
+    </label>
+    <label>
+      Tone override
+      <input type="text" name="tone_override" placeholder="Energetic and upbeat" />
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="is_active" />
+      Set as active campaign
+    </label>
+    <button type="submit">Create campaign</button>
+  </form>
+  <div class="stack">
+    <form id="campaignFeatureForm" class="form-grid inline">
+      <label>
+        Campaign
+        <select name="campaign_id" required></select>
+      </label>
+      <label>
+        Brand feature
+        <select name="brand_feature_id" required></select>
+      </label>
+      <label>
+        Highlight text
+        <input type="text" name="highlight_text" placeholder="Short teaser" />
+      </label>
+      <label>
+        Sort order
+        <input type="number" name="sort_order" value="0" />
+      </label>
+      <button type="submit">Add to campaign</button>
+    </form>
+    <div id="campaignList" class="item-list"></div>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>6. Lead preview</h2>
+  <p>Submit a test lead to generate a confirmation email preview.</p>
+  <form id="leadForm" class="form-grid">
+    <label>
+      Brand slug
+      <select name="brand_slug" required></select>
+    </label>
+    <label>
+      Lead email
+      <input type="email" name="email" placeholder="prospect@example.com" required />
+    </label>
+    <label>
+      First name
+      <input type="text" name="first_name" />
+    </label>
+    <label>
+      Last name
+      <input type="text" name="last_name" />
+    </label>
+    <label>
+      Company
+      <input type="text" name="company" />
+    </label>
+    <label>
+      Job title
+      <input type="text" name="job_title" />
+    </label>
+    <button type="submit">Generate preview</button>
+  </form>
+  <article id="preview" class="preview">
+    <h3>Email preview</h3>
+    <p class="empty">Submit a lead to see the generated email.</p>
+    <div class="preview-meta"></div>
+    <iframe title="Email preview" class="preview-frame"></iframe>
+  </article>
+</section>
+{% endblock %}

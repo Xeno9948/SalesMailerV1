@@ -1,11 +1,22 @@
 from __future__ import annotations
 
-from fastapi import FastAPI
+from pathlib import Path
+
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 from app.database import init_db
 from app.routers import brands, campaigns, features, leads, templates
 
 app = FastAPI(title="Sales Mailer Portal", version="0.1.0")
+
+BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+static_dir = BASE_DIR / "static"
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 
 @app.on_event("startup")
@@ -20,6 +31,6 @@ app.include_router(campaigns.router, prefix="/campaigns", tags=["campaigns"])
 app.include_router(leads.router, prefix="/leads", tags=["leads"])
 
 
-@app.get("/")
-def root() -> dict[str, str]:
-    return {"message": "Sales Mailer Portal is running"}
+@app.get("/", response_class=HTMLResponse)
+def root(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse("index.html", {"request": request})

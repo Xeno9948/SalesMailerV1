@@ -43,13 +43,26 @@ app/
 
 2. **Configure environment variables** (optional but recommended): copy `.env.example` to `.env` and populate OpenAI/Gmail secrets. At minimum set `OPENAI_API_KEY` to enable AI-powered copywriting.
 
-3. **Run the API**
+3. **Run the API and web dashboard**
 
    ```bash
    uvicorn app.main:app --reload
    ```
 
-4. **Explore the docs** at [http://localhost:8000/docs](http://localhost:8000/docs).
+4. **Open the management UI** at [http://localhost:8000/](http://localhost:8000/) and keep the interactive API docs handy at [http://localhost:8000/docs](http://localhost:8000/docs).
+
+## Using the web interface
+
+The built-in dashboard provides a guided flow for configuring the platform:
+
+1. **Brand setup** – create a record for each brand (e.g. Kiyoh, Klantenvertellen) with sender details, tone, and OpenAI guidance.
+2. **Feature library** – capture reusable feature descriptions once.
+3. **Brand assets** – link features to a brand with URLs, CTA text, and asset labels.
+4. **Email templates** – paste HTML templates per brand and mark a default.
+5. **Campaigns** – create campaigns, mark the active one for a brand, and attach the brand features to highlight.
+6. **Lead preview** – submit a test lead to generate and review the confirmation email directly in the browser.
+
+All actions are executed via the existing REST API, so any data configured in the UI is immediately available to the endpoints that ingest leads or trigger email delivery.
 
 ## Deployment & Hosting
 
