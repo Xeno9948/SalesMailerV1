@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SalesMailer Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>SalesMailer Portal</h1>
+      <p class="tagline">
+        Configure brands, features, templates, campaigns, and preview confirmation emails right in your browser.
+      </p>
+      <div class="actions">
+        <button id="exportButton" class="ghost">Export Data</button>
+        <label class="ghost file-input">
+          <input type="file" id="importInput" accept="application/json" />
+          Import Data
+        </label>
+        <button id="resetButton" class="danger">Reset Workspace</button>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Brands</h2>
+        <form id="brandForm" class="card">
+          <div class="field">
+            <label for="brandName">Brand name</label>
+            <input id="brandName" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="brandSlug">Brand slug</label>
+            <input id="brandSlug" name="slug" type="text" required />
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="brandSenderName">Sender name</label>
+              <input id="brandSenderName" name="senderName" type="text" />
+            </div>
+            <div class="field">
+              <label for="brandSenderEmail">Sender email</label>
+              <input id="brandSenderEmail" name="senderEmail" type="email" />
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="brandDefaultSubject">Default subject</label>
+              <input id="brandDefaultSubject" name="defaultSubject" type="text" />
+            </div>
+            <div class="field">
+              <label for="brandDefaultTone">Default tone</label>
+              <input id="brandDefaultTone" name="defaultTone" type="text" placeholder="Friendly" />
+            </div>
+          </div>
+          <button type="submit">Save brand</button>
+        </form>
+        <div id="brandList" class="list"></div>
+      </section>
+
+      <section>
+        <h2>Features</h2>
+        <form id="featureForm" class="card">
+          <div class="field">
+            <label for="featureName">Feature name</label>
+            <input id="featureName" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="featureShort">Highlight copy</label>
+            <textarea id="featureShort" name="shortDescription" rows="2" required></textarea>
+          </div>
+          <div class="field">
+            <label for="featureLong">Detailed description</label>
+            <textarea id="featureLong" name="longDescription" rows="3"></textarea>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="featureAssetLabel">Asset label</label>
+              <input id="featureAssetLabel" name="assetLabel" type="text" placeholder="Screenshot" />
+            </div>
+            <div class="field">
+              <label for="featureAssetUrl">Asset URL</label>
+              <input id="featureAssetUrl" name="assetUrl" type="url" />
+            </div>
+          </div>
+          <button type="submit">Save feature</button>
+        </form>
+        <div id="featureList" class="list"></div>
+      </section>
+
+      <section>
+        <h2>Attach features to brands</h2>
+        <form id="brandFeatureForm" class="card">
+          <div class="field-grid">
+            <div class="field">
+              <label for="brandSelect">Brand</label>
+              <select id="brandSelect" name="brandId" required></select>
+            </div>
+            <div class="field">
+              <label for="featureSelect">Feature</label>
+              <select id="featureSelect" name="featureId" required></select>
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="featureCta">CTA text</label>
+              <input id="featureCta" name="ctaText" type="text" placeholder="Discover more" />
+            </div>
+            <div class="field">
+              <label for="featureLink">CTA link</label>
+              <input id="featureLink" name="ctaUrl" type="url" />
+            </div>
+          </div>
+          <button type="submit">Attach feature</button>
+        </form>
+        <div id="brandFeatureList" class="list"></div>
+      </section>
+
+      <section>
+        <h2>Templates</h2>
+        <form id="templateForm" class="card">
+          <div class="field-grid">
+            <div class="field">
+              <label for="templateBrand">Brand</label>
+              <select id="templateBrand" name="brandId" required></select>
+            </div>
+            <div class="field">
+              <label for="templateName">Template name</label>
+              <input id="templateName" name="name" type="text" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="templateSubject">Subject template</label>
+            <input id="templateSubject" name="subject" type="text" placeholder="{{ brand.name }} confirmation" />
+          </div>
+          <div class="field">
+            <label for="templateHtml">HTML template</label>
+            <textarea id="templateHtml" name="html" rows="6" placeholder="Use {{ lead.company }} and {{ feature.name }}"></textarea>
+          </div>
+          <button type="submit">Save template</button>
+        </form>
+        <div id="templateList" class="list"></div>
+      </section>
+
+      <section>
+        <h2>Campaigns</h2>
+        <form id="campaignForm" class="card">
+          <div class="field-grid">
+            <div class="field">
+              <label for="campaignBrand">Brand</label>
+              <select id="campaignBrand" name="brandId" required></select>
+            </div>
+            <div class="field">
+              <label for="campaignName">Campaign name</label>
+              <input id="campaignName" name="name" type="text" required />
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="campaignTone">Tone</label>
+              <input id="campaignTone" name="tone" type="text" placeholder="Warm" />
+            </div>
+            <div class="field">
+              <label for="campaignGoal">Goal</label>
+              <input id="campaignGoal" name="goal" type="text" placeholder="Promote review growth" />
+            </div>
+          </div>
+          <button type="submit">Save campaign</button>
+        </form>
+        <div id="campaignList" class="list"></div>
+      </section>
+
+      <section>
+        <h2>Leads</h2>
+        <form id="leadForm" class="card">
+          <div class="field-grid">
+            <div class="field">
+              <label for="leadBrand">Brand</label>
+              <select id="leadBrand" name="brandSlug" required></select>
+            </div>
+            <div class="field">
+              <label for="leadCompany">Company</label>
+              <input id="leadCompany" name="company" type="text" required />
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="leadContact">Contact person</label>
+              <input id="leadContact" name="contact" type="text" />
+            </div>
+            <div class="field">
+              <label for="leadEmail">Contact email</label>
+              <input id="leadEmail" name="email" type="email" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="leadNotes">Notes</label>
+            <textarea id="leadNotes" name="notes" rows="3"></textarea>
+          </div>
+          <button type="submit">Save lead</button>
+        </form>
+        <div id="leadList" class="list"></div>
+      </section>
+
+      <section>
+        <h2>Email preview</h2>
+        <form id="previewForm" class="card">
+          <div class="field-grid">
+            <div class="field">
+              <label for="previewBrand">Brand</label>
+              <select id="previewBrand" name="brandId"></select>
+            </div>
+            <div class="field">
+              <label for="previewLead">Lead</label>
+              <select id="previewLead" name="leadId"></select>
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="previewTemplate">Template</label>
+              <select id="previewTemplate" name="templateId"></select>
+            </div>
+            <div class="field">
+              <label for="previewCampaign">Campaign tone</label>
+              <select id="previewCampaign" name="campaignId"></select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="previewFeatures">Featured highlights</label>
+            <select id="previewFeatures" name="featureIds" multiple></select>
+            <p class="help">
+              Hold Cmd/Ctrl while clicking to select multiple highlights.
+            </p>
+          </div>
+        </form>
+        <article id="preview" class="card preview">
+          <h3>Subject</h3>
+          <p id="previewSubject" class="preview-subject">Select a brand, lead, and template to render a preview.</p>
+          <h3>Body</h3>
+          <div id="previewBody" class="preview-body"></div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        All data lives in your browser. Export a backup or import an existing configuration to collaborate.
+      </p>
+    </footer>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

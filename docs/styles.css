@@ -1,0 +1,213 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f4f6fb;
+  --card: rgba(255, 255, 255, 0.92);
+  --border: rgba(10, 37, 64, 0.12);
+  --text: #1b2a4b;
+  --muted: rgba(27, 42, 75, 0.7);
+  --accent: #4f46e5;
+  --accent-soft: rgba(79, 70, 229, 0.12);
+  --danger: #ef4444;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(160deg, rgba(79, 70, 229, 0.08), rgba(14, 165, 233, 0.08)), var(--bg);
+  color: var(--text);
+}
+
+header {
+  padding: 2.5rem clamp(1rem, 4vw, 3rem) 1rem;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+}
+
+.tagline {
+  margin: 0.5rem 0 1.5rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+button,
+select,
+input,
+textarea,
+label.file-input {
+  font: inherit;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.25);
+}
+
+button.ghost,
+label.file-input {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+label.file-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
+}
+
+label.file-input input {
+  display: none;
+}
+
+main {
+  display: grid;
+  gap: 2rem;
+  padding: 0 clamp(1rem, 5vw, 3rem) 3rem;
+}
+
+section {
+  background: var(--card);
+  border-radius: 1.5rem;
+  padding: 2rem clamp(1rem, 5vw, 2.5rem);
+  box-shadow: 0 35px 80px rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--border);
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.field label {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+input,
+select,
+textarea {
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+  color: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.field-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .field-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.list {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.item-card {
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 15px 30px rgba(15, 23, 42, 0.08);
+}
+
+.item-card h3 {
+  margin: 0 0 0.25rem;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.help {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.preview {
+  margin-top: 1.5rem;
+}
+
+.preview-subject {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.preview-body {
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.preview-body strong {
+  color: var(--accent);
+}
+
+footer {
+  padding: 2rem clamp(1rem, 5vw, 3rem) 4rem;
+  text-align: center;
+  color: var(--muted);
+}
