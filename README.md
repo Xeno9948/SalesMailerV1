@@ -19,25 +19,30 @@ SalesMailer now ships with a **static management portal** that runs entirely in 
 - ✉️ **Live preview** – mix and match brand assets, templates, campaigns, and features to render an email preview instantly.
 - 💾 **Local-first** – everything is stored in `localStorage`, with import/export buttons for backup or collaboration.
 
-## Run it locally
+## Publish (and run) on GitHub Pages
 
-You can open `docs/index.html` directly in a browser, but using a lightweight static server avoids CORS issues when importing JSON files.
+1. Push this repository to GitHub with the `docs/` folder on the default branch.
+2. In the GitHub UI, open **Settings → Pages**.
+3. Under **Build and deployment**, choose **Deploy from a branch**.
+4. Select the default branch (e.g. `main`) and the `/docs` folder, then click **Save**.
+
+That’s it! GitHub Pages will build the site automatically and, once it finishes (usually under a minute), anyone can load the app by visiting:
+
+```
+https://<username>.github.io/<repository>/
+```
+
+No servers, terminals, or local runtime are required—the entire dashboard is delivered and executed straight from GitHub’s CDN.
+
+## Optional local preview
+
+If you would like to try changes before pushing, you can open `docs/index.html` directly in a browser or use any static file server. For example:
 
 ```bash
 python -m http.server --directory docs 8000
 ```
 
-Now visit [http://localhost:8000](http://localhost:8000) and the SalesMailer dashboard will load.
-
-## Publish on GitHub Pages
-
-1. Commit the repository to GitHub (the `docs/` folder must be on the default branch).
-2. In the GitHub UI, navigate to **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select the default branch (e.g. `main`) and the `/docs` folder, then click **Save**.
-5. After a minute or two, GitHub Pages will publish your site at `https://<username>.github.io/<repository>/`.
-
-Every time you push changes to `docs/` the hosted dashboard updates automatically.
+Then visit [http://localhost:8000](http://localhost:8000) to see the dashboard exactly as it will appear on GitHub Pages.
 
 ## Migrating existing workspaces
 
